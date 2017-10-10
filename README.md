@@ -26,3 +26,22 @@ The purpose of our project is to examine, which streets are more prone to accide
 - Traffic amounts in Helsinki: [Liikennemäärät Helsingissä](https://www.avoindata.fi/data/fi/dataset/liikennemaarat-helsingissa)
 
 - Finnish traffic accidents: [Tieliikenneonnettomuudet](https://www.avoindata.fi/data/fi/dataset/tieliikenneonnettomuudet)
+
+## Pipenv instructions 
+
+Also found [here](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+
+1. Have Pip for python 3 installed
+    - Google if uncertaion how to do it in your OS
+2. Install Pipenv with command: `pip install --user pipenv`
+3. Run command: `pipenv install`
+    - Now you have environment set up
+
+
+To run a python file, run it with command `pipenv run python <name of the file>.py`
+
+
+To install a new dependency, run command: `pipenv install <module name>`
+
+
+To run shell with pipenv's dependencies, you can run `pipenv shell`
