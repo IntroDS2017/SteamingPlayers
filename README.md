@@ -1,13 +1,6 @@
 # Comparing amounts and accidents in traffic in Helsinki
 
-## Source
-
-- Traffic amounts in Helsinki: [Liikennemäärät Helsingissä](https://www.avoindata.fi/data/fi/dataset/liikennemaarat-helsingissa)
-
-- Finnish traffic accidents: [Tieliikenneonnettomuudet](https://www.avoindata.fi/data/fi/dataset/tieliikenneonnettomuudet)
-
-
-## Pitch
+## B
 
 We intend to analyse open data on traffic of Helsinki. We use two datasets of which one contains information about annual traffic on different streets of Helsinki, and the other one data about traffic accidents all over Finland. We would like to identify patterns on which time of the day traffic accidents occur on different streets, and find out, if changes occur in amounts of accidents annually.
 
@@ -26,3 +19,10 @@ We will communicate our results with a report containing graphical presentations
 ### F
 
 The purpose of our project is to examine, which streets are more prone to accidents than others.
+
+
+## Source
+
+- Traffic amounts in Helsinki: [Liikennemäärät Helsingissä](https://www.avoindata.fi/data/fi/dataset/liikennemaarat-helsingissa)
+
+- Finnish traffic accidents: [Tieliikenneonnettomuudet](https://www.avoindata.fi/data/fi/dataset/tieliikenneonnettomuudet)
