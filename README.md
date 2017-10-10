@@ -26,6 +26,3 @@ The purpose of our project is to examine, which streets are more prone to accide
 - Traffic amounts in Helsinki: [Liikennemäärät Helsingissä](https://www.avoindata.fi/data/fi/dataset/liikennemaarat-helsingissa)
 
 - Finnish traffic accidents: [Tieliikenneonnettomuudet](https://www.avoindata.fi/data/fi/dataset/tieliikenneonnettomuudet)
-
-
-sdfklsdjflsdkj
