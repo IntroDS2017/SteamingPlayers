@@ -14,6 +14,8 @@ def drop_column(col):
 
 
 df = pd.read_csv("data/hki_accidents.csv", encoding = 'utf-8')
+
+print("Original columns:\n")
 print(df.columns.values)
 
 # Clearly unnecessary columns
@@ -27,17 +29,25 @@ obvious_cols = [0, 33, 58, 73, 76, 90, "Tienpitsel", "Vakavuus", "ELY", "Elynimi
 for c in obvious_cols:
     drop_column(c)
 
+print("")
 
-# Other not clearly obvious columns that should be dropped
+# Find columns where each entry has the same value and delete them
 
-# Tienverkas mostly unused and doesn't seem to provide any useful information.
-# Valoohjaus == -1 for each entry.
-other_cols = ["Tienverkas", "Valoohjaus"]
+for c in df.columns.values:
+    value = df[c][0]
+
+    if len(df.loc[df[c] != value]) == 0:
+        print("Unnecessary column found: " + str(c))
+        drop_column(c)
+
+# Tienverkas is mostly unused and doesn't seem to provide any useful information
+
+other_cols = ["Tienverkas"] # TODO: add more here
 
 for c in other_cols:
     drop_column(c)
 
-print "\n"
+print("\nNew columns:\n")
 print(df.columns.values)
 
 df.to_csv("data/hki_accidents_cleaned.csv", index = False, encoding = 'utf-8')
