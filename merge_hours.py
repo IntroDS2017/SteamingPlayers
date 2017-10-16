@@ -51,7 +51,7 @@ def group_by_column(df, c_name):
 
 
 def road_usages(path='data/hki_road_usages.csv'):
-    return pd.read_csv(path, encoding='utf-8')
+    return pd.read_csv(path)
 
 
 def main(path='data/hki_road_usages.csv'):
@@ -74,7 +74,7 @@ def main(path='data/hki_road_usages.csv'):
 if __name__ == '__main__':
     """
     Optional parameters:
-    sys.argv[1] = csv-file to be handeled. Default is hki_road_usages.csv
+    sys.argv[1] = csv-file to be handeled. Default is data/hki_road_usages.csv
     sys.argv[2] = desired file name to be saved as
     """
     import sys
@@ -90,6 +90,6 @@ if __name__ == '__main__':
     try:
         result.to_csv(sys.argv[2])
     except:
-        result.to_csv("hki_road_usages_v1.csv")
+        result.to_csv("data/hki_road_usages_v1.csv")
 
     print(result)
