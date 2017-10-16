@@ -10,6 +10,7 @@ def drop_column(c):
     else:
         df_accidents.drop(c, axis = 1, inplace = True)
 
+
 def process_df():
     # Clearly unnecessary columns
 
