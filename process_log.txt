@@ -1,0 +1,29 @@
+------------
+Process log
+------------
+
+Here you can find a log behind steps what we did with the data. The log isn't all-inclusive as we started
+writing it after several steps were already completed. It however should still give a pretty good
+point of view in the process in general.
+
+------
+Steps
+------
+
+1. Original traffic accident and road usages (0_road_usages.csv) datas were downloaded from avoindata.fi.
+   The traffic accidents data was combined (originally annual csv files), and columns Oslakpvm and Luovpvm
+   were removed from the combined file. This is how 0_accidents.csv was made.
+
+
+2. Code file 1.py removes unnecessary columns from 0_accidents.csv and outputs 1_accidents.csv.
+
+
+3. Manual "Find & Replace All" process for fixing erroneous UTF-8 encoding of 0_road_usages.csv.
+   This included changing "faulty-Ä" and "faulty-Ö" marks into "Ä" and "Ö" (0xC384, 0xC396).
+
+   At the same time, some road names were also modified. For example "V. PORVOONTIE" was changed into "VANHA PORVOONTIE",
+   and "KEHÄ III" into "KEHÄ 3".
+
+
+4. Code file 2.py combines rows of 1_road_usages.csv by setting all the entries being hourly.
+   Originally the entries were either formed in 15-minute or 1-hour scale.
