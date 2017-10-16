@@ -90,6 +90,6 @@ if __name__ == '__main__':
     try:
         result.to_csv(sys.argv[2])
     except:
-        result.to_csv("hki_road_usages_cleaned_v1.csv")
+        result.to_csv("hki_road_usages_v1.csv")
 
     print(result)
