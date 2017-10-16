@@ -1,12 +1,12 @@
 import pandas as pd
 
 
-def flatten_list(list):
-    return [row for rows in list for row in rows]
+def flatten_list(to_flat):
+    return [row for rows in to_flat for row in rows]
 
 
-def handle_grouped_by_aika(tuple):
-    rows = tuple[1]
+def handle_grouped_by_aika(group):
+    rows = group[1]
 
     cars = rows['autot'].sum()
 
@@ -54,12 +54,12 @@ def road_usages(path='data/hki_road_usages.csv'):
     return pd.read_csv(path, encoding='utf-8')
 
 
-def main():
+def main(path='data/hki_road_usages.csv'):
     """
     Merges hours in original hki_road_usages.csv
-    :return: Dataframe with summed cars by hours
+    :return: New dataframe. If time-unit was between some hour, they were summed.
     """
-    ru = road_usages('data/hki_road_usages.csv')
+    ru = road_usages(path)
     grouped_by_piste = group_by_column(ru, 'piste')
 
     result = map(handle_grouped_by_piste, grouped_by_piste)
@@ -72,5 +72,24 @@ def main():
 
 
 if __name__ == '__main__':
+    """
+    Optional parameters:
+    sys.argv[1] = csv-file to be handeled. Default is hki_road_usages.csv
+    sys.argv[2] = desired file name to be saved as
+    """
+    import sys
     pd.options.mode.chained_assignment = None  # default='warn'
-    print(main())
+
+    result = None
+
+    try:
+        result = main(sys.argv[1])
+    except:
+        result = main()
+
+    try:
+        result.to_csv(sys.argv[2])
+    except:
+        result.to_csv("hki_road_usages_cleaned_v1.csv")
+
+    print(result)
