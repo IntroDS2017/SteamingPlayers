@@ -68,7 +68,7 @@ def group_by_column(df, c_name):
 
 def main(road_usages_data_path):
     """
-    Merges hours in original 0_road_usages.csv
+    Merges hours in 2_road_usages.csv
     :param road_usages_data_path: String, where file is loaded from.
     :return: New dataframe. If time-unit was between some hour, they were summed.
     """
@@ -84,14 +84,14 @@ def main(road_usages_data_path):
 if __name__ == '__main__':
     """
     Optional parameters:
-    sys.argv[1] = csv-file to be handeled. Default is data/0_road_usages.csv (= original road usages data)
+    sys.argv[1] = csv-file to be handeled. Default is data/2_road_usages.csv
     sys.argv[2] = desired file name to be saved as
     """
     import sys
     pd.options.mode.chained_assignment = None  # default='warn'
 
-    load_path = "data/0_road_usages.csv"
-    save_path = "data/2_road_usages.csv" # saved by default as version 2 because 1_remove_unnecessary_columns.csv run first (although in this case, not necessary)
+    load_path = "data/2_road_usages.csv"
+    save_path = "data/3_road_usages.csv"
 
     try:
         load_path = sys.argv[1]

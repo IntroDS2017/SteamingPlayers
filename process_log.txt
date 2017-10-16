@@ -18,12 +18,18 @@ Steps
 2. Code file 1.py removes unnecessary columns from 0_accidents.csv and outputs 1_accidents.csv.
 
 
-3. Manual "Find & Replace All" process for fixing erroneous UTF-8 encoding of 0_road_usages.csv.
-   This included changing "faulty-Ä" and "faulty-Ö" marks into "Ä" and "Ö" (0xC384, 0xC396).
+3. Manual "Find & Replace All" process was used to fix erroneous UTF-8 encoding of roads' names in 0_road_usages.csv,
+   and this is how 1_road_usages.csv was made.
 
-   At the same time, some road names were also modified. For example "V. PORVOONTIE" was changed into "VANHA PORVOONTIE",
-   and "KEHÄ III" into "KEHÄ 3".
+   Changes:
+    - Faulty Ä and Ö marks were replaced with correct Ä (0xC384) and Ö (0xC396).
+      For example L�NSIV�YL� was changed into LÄNSIVÄYLÄ.
+
+    - Some road names got also other changes:
+      - V.PORVOONTIE     --> VANHA PORVOONTIE
+      - UUSI PORVOONTTIE --> UUSI PORVOONTIE  (typo fix)
+      - KEHÄ III         --> KEHÄ 3 (referred with this name also in accidents data)
 
 
-4. Code file 2.py combines rows of 1_road_usages.csv by setting all the entries being hourly.
+4. Code file 2.py combines rows of 2_road_usages.csv by setting all the entries being hourly.
    Originally the entries were either formed in 15-minute or 1-hour scale.
