@@ -2,10 +2,21 @@ import pandas as pd
 
 
 def flatten_list(to_flat):
+    """
+    Flattens 2D-list to 1d
+    :param to_flat: List to flatten
+    :return: 1D list
+    """
     return [row for rows in to_flat for row in rows]
 
 
 def handle_grouped_by_aika(group):
+    """
+    Sums car-amounts of given rows. Also time is increased by one to match accident-data. It is intended that group has
+    the same 'aika'.
+    :param group: Car-amounts to sum.
+    :return: First row of the group, with summed 'autot'
+    """
     rows = group[1]
 
     cars = rows['autot'].sum()
@@ -17,8 +28,13 @@ def handle_grouped_by_aika(group):
     return result
 
 
-def handle_grouped_by_suunta(tuple):
-    groups = tuple[1]
+def handle_grouped_by_suunta(df_tuple):
+    """
+    Divides 'aika' column by 100, and groups rows by 'aika', and proceeds to pass this value to sum 'autot'.
+    :param df_tuple: grouped-by - groups-tuple.
+    :return: Two rows with summed 'auto':t, for each 'suunta'
+    """
+    groups = df_tuple[1]
 
     normalized_aika = groups['aika'].apply(lambda x: x / 100)
 
@@ -30,8 +46,13 @@ def handle_grouped_by_suunta(tuple):
     return result
 
 
-def handle_grouped_by_piste(tuple):
-    grouped_by_suunta = group_by_column(tuple[1], 'suunta')
+def handle_grouped_by_piste(df_tuple):
+    """
+    Splits rows by 'suunta', direction, and proceeds to sum 'auto'-column, cars for each hour.
+    :param df_tuple: grouped-by - groups tuple. Should be already grouped by 'piste', measurement point
+    :return: flatten result of rows, which have summed 'auto', car-amount for each hour
+    """
+    grouped_by_suunta = group_by_column(df_tuple[1], 'suunta')
     result = map(handle_grouped_by_suunta, grouped_by_suunta)
 
     flat_result = flatten_list(result)
@@ -57,6 +78,7 @@ def road_usages(path='data/hki_road_usages.csv'):
 def main(path='data/hki_road_usages.csv'):
     """
     Merges hours in original hki_road_usages.csv
+    :param path: String, where file is loaded from.
     :return: New dataframe. If time-unit was between some hour, they were summed.
     """
     ru = road_usages(path)
