@@ -17,7 +17,7 @@ def main():
     # Clearly unnecessary columns
 
     # 0 = index, 33 = Saasel, 58 = Paallsel, 73 = Maankaytse, 76 = LisaKaisse, 90 = Paallksel
-    obvious_cols = [0, 33, 58, 73, 76, 90, "Tienpitsel", "Vakavuus", "ELY", "Elynimi", "Poliisipri", "Piirinimi", "Ontyypsel", "Onlksel", "Taajamasel",
+    obvious_cols = [0, 33, 58, 73, 76, 90, "Tienpitsel", "Vakavuus", "Poliisipri", "Piirinimi", "Ontyypsel", "Onlksel", "Taajamasel",
                     "Pintasel","Valsel", "Onnpaiksel", "Liikvalsel", "Maakunta", "Maakuntsel", "Kunta", "Kuntasel", "Noplajisel", "Mo_molsel",
                     "Toimlksel", "Risteyssel", "Rautatsel", "Muuliitsel", "Tietyypsel", "Talvhoitsel", "Tienverkse", "Valoohjsel","Solmutyyps",
                     "Liitlksel", "Toimpidsel", "Valomsel", "Poikleikse"]
@@ -38,7 +38,8 @@ def main():
 
     # Tienverkas is mostly unused and doesn't seem to provide any useful information
 
-    other_cols = ["Tienverkas"] # TODO: add more here
+    other_cols = ["Tienverkas", "Maankäyttö", "Talvhoitlk", "Nakos150",
+                  "Nakos300", "Nakos460", "Runkotie", "Raskos"] # TODO: add more here
 
     for c in other_cols:
         drop_column(c)
