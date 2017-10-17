@@ -15,7 +15,7 @@ def drop_rows_by_road_names(road_names, df):
 if __name__ == '__main__':
 
     load_path = "data/2_road_usages.csv"
-    save_path = "data/42_road_usages.csv"
+    save_path = "data/3_road_usages.csv"
 
     df_road_usages = pd.read_csv(load_path)
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # Renaming road names to match the other data-set
     df_road_usages['nimi'] = df_road_usages['nimi'].map(modify_street)
 
-    df_road_usages.to_csv(save_path, index = False)
+    df_road_usages.to_csv(save_path, index=False)
 
 
     print("\nNew unique road names count: " + str(len(df_road_usages.nimi.unique())))
