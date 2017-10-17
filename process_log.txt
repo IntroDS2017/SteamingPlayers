@@ -19,17 +19,15 @@ Steps
 
 
 3. Manual "Find & Replace All" process was used to fix erroneous UTF-8 encoding of roads' names in 0_road_usages.csv,
-   and this is how 1_road_usages.csv was made.
+   and this is how 2_road_usages.csv was made.
 
    Changes:
     - Faulty Ä and Ö marks were replaced with correct Ä (0xC384) and Ö (0xC396).
       For example L�NSIV�YL� was changed into LÄNSIVÄYLÄ.
 
-    - Some road names got also other changes:
-      - V.PORVOONTIE     --> VANHA PORVOONTIE
-      - UUSI PORVOONTTIE --> UUSI PORVOONTIE  (typo fix)
-      - KEHÄ III         --> KEHÄ 3 (referred with this name also in accidents data)
+
+4. Code 2.py does more changes to names of certain streets in 2_road_usages.csv. It outputs 3_road_usages.csv.
 
 
-4. Code file 2.py combines rows of 2_road_usages.csv by setting all the entries being hourly.
+5. Code file 3.py combines rows of 3_road_usages.csv by setting all the entries being hourly.
    Originally the entries were either formed in 15-minute or 1-hour scale.
