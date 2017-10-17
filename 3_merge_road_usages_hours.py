@@ -90,8 +90,8 @@ if __name__ == '__main__':
     import sys
     pd.options.mode.chained_assignment = None  # default='warn'
 
-    load_path = "data/3_road_usages.csv"
-    save_path = "data/4_road_usages.csv"
+    load_path = "data/2_road_usages.csv"
+    save_path = "data/3_road_usages.csv"
 
     try:
         load_path = sys.argv[1]
