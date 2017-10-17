@@ -32,3 +32,6 @@ Steps
 
 5. Code file 3.py combines rows of 3_road_usages.csv by setting all the entries being hourly.
    Originally the entries were either formed in 15-minute or 1-hour scale.
+
+6. Code-file 5_select_accidents.py filters accidents by road-names, which should be common with latest road-usages.
+   Input is by default 1_accidents.csv and 3_road_usages.csv. Outputs 4_accidents.csv.
