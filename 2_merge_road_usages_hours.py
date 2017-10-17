@@ -36,14 +36,10 @@ def handle_grouped_by_suunta(df_tuple):
     """
     groups = df_tuple[1]
 
-    normalized_aika = groups['aika'].apply(lambda x: x / 100)
-
-    groups['aika'] = normalized_aika
+    groups['aika'] = groups['aika'].apply(lambda x: x / 100) # normalize aika
     grouped_by_aika = group_by_column(groups, 'aika')
 
-    result = map(handle_grouped_by_aika, grouped_by_aika)
-
-    return result
+    return map(handle_grouped_by_aika, grouped_by_aika)
 
 
 def handle_grouped_by_piste(df_tuple):
@@ -55,11 +51,10 @@ def handle_grouped_by_piste(df_tuple):
     grouped_by_suunta = group_by_column(df_tuple[1], 'suunta')
     result = map(handle_grouped_by_suunta, grouped_by_suunta)
 
-    flat_result = flatten_list(result)
-
-    return flat_result
+    return flatten_list(result)
 
 
+# TODO: could be removed
 def group_by_column(df, c_name):
     """
     Groups rows by column.
@@ -71,47 +66,43 @@ def group_by_column(df, c_name):
     return df.groupby(c_name)
 
 
-def road_usages(path='data/hki_road_usages.csv'):
-    return pd.read_csv(path)
-
-
-def main(path='data/hki_road_usages.csv'):
+def main(road_usages_data_path):
     """
-    Merges hours in original hki_road_usages.csv
-    :param path: String, where file is loaded from.
+    Merges hours in 2_road_usages.csv
+    :param road_usages_data_path: String, where file is loaded from.
     :return: New dataframe. If time-unit was between some hour, they were summed.
     """
-    ru = road_usages(path)
-    grouped_by_piste = group_by_column(ru, 'piste')
+    road_usages = pd.read_csv(road_usages_data_path)
+    grouped_by_piste = group_by_column(road_usages, 'piste')
 
     result = map(handle_grouped_by_piste, grouped_by_piste)
-
     flat_result = flatten_list(result)
 
-    result_df = pd.DataFrame(flat_result)
-
-    return result_df
+    return pd.DataFrame(flat_result)
 
 
 if __name__ == '__main__':
     """
     Optional parameters:
-    sys.argv[1] = csv-file to be handeled. Default is data/hki_road_usages.csv
+    sys.argv[1] = csv-file to be handeled. Default is data/2_road_usages.csv
     sys.argv[2] = desired file name to be saved as
     """
     import sys
     pd.options.mode.chained_assignment = None  # default='warn'
 
-    result = None
+    load_path = "data/2_road_usages.csv"
+    save_path = "data/3_road_usages.csv"
 
     try:
-        result = main(sys.argv[1])
+        load_path = sys.argv[1]
+        save_path = sys.argv[2]
     except:
-        result = main()
+        None
 
-    try:
-        result.to_csv(sys.argv[2])
-    except:
-        result.to_csv("data/hki_road_usages_v1.csv")
+    print("load path: " + load_path)
+    print("save path: " + save_path)
+
+    result = main(load_path)
+    result.to_csv(save_path, index = False) # do not write index column in the file
 
     print(result)
