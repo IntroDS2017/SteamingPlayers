@@ -14,8 +14,8 @@ def drop_rows_by_road_names(road_names, df):
 
 if __name__ == '__main__':
 
-    load_path = "data/0_road_usages.csv"
-    save_path = "data/2_road_usages.csv"
+    load_path = "data/2_road_usages.csv"
+    save_path = "data/3_road_usages.csv"
 
     df_road_usages = pd.read_csv(load_path)
 

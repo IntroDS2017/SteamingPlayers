@@ -36,7 +36,7 @@ def handle_grouped_by_suunta(df_tuple):
     """
     groups = df_tuple[1]
 
-    groups['aika'] = groups['aika'].apply(lambda x: x / 100) # normalize aika
+    groups['aika'] = groups['aika'].apply(lambda x: int(x / 100)) # normalize aika
     grouped_by_aika = group_by_column(groups, 'aika')
 
     return map(handle_grouped_by_aika, grouped_by_aika)
@@ -90,8 +90,8 @@ if __name__ == '__main__':
     import sys
     pd.options.mode.chained_assignment = None  # default='warn'
 
-    load_path = "data/2_road_usages.csv"
-    save_path = "data/3_road_usages.csv"
+    load_path = "data/3_road_usages.csv"
+    save_path = "data/4_road_usages.csv"
 
     try:
         load_path = sys.argv[1]
