@@ -26,7 +26,8 @@ Steps
       For example L�NSIV�YL� was changed into LÄNSIVÄYLÄ.
 
 
-4. Code 2.py does more changes to names of certain streets in 2_road_usages.csv. It outputs 3_road_usages.csv.
+4. Code 2.py does more changes to names of certain streets in 2_road_usages.csv. It drops some uncertain road-names.
+   It outputs 3_road_usages.csv.
 
 
 5. Code file 3.py combines rows of 3_road_usages.csv by setting all the entries being hourly.
