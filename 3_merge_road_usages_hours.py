@@ -1,17 +1,5 @@
 import pandas as pd
 
-# TODO: could be removed
-def group_by_column(df, c_name):
-    """
-    Groups rows by column.
-    :param df: Dataframe to be grouped
-    :param c_name: Column to be grouped by.
-    :return: Tuple, first contains by which value dataframe has been grouped by with. Second contains dataframe with
-    rows which correspond the tuple's first value.
-    """
-    return df.groupby(c_name)
-
-
 def flatten_list(to_flat):
     """
     Flattens 2D-list to 1d
@@ -23,44 +11,36 @@ def flatten_list(to_flat):
 
 def sum_over_autot_of_rows_sharing_aika(grouped_roads):
     """
-    Sums car-amounts of given rows. Also time is increased by one to match accident-data. It is intended that group has
-    the same 'aika'.
-    :param grouped_roads: Car-amounts to sum.
-    :return: First row of the group, with summed 'autot'
+    Sums car-amounts of given rows.
+    :param grouped_roads: Roads that are supposed to share (piste/nimi, year, and suunta).
+    :return: First road of the roads, with summed 'autot'
     """
     roads = grouped_roads[1]
 
     cars = roads['autot'].sum()
 
-    result = roads.iloc[0].copy() # TODO: what does this do?
+    result = roads.iloc[0].copy() # copies the first row as the result field
     result['autot'] = cars
-    result['aika'] += 1
-
     return result
 
 
-def handle_roads_by_id_and_suunta(grouped_roads):
-    """
-    Divides 'aika' column by 100, and groups rows by 'aika', and proceeds to pass this value to sum 'autot'.
-    :param piste_suunta_grouped: grouped-by - groups-tuple.
-    :return: Two rows with summed 'auto':t, for each 'suunta'
-    """
+def handle_roads_by_id_vuosi_and_suunta(grouped_roads):
     roads = grouped_roads[1]
+    return map(sum_over_autot_of_rows_sharing_aika, roads.groupby('aika'))
 
-    roads['aika'] = roads['aika'].apply(lambda x: int(x / 100)) # set for example each 700, 715, 730, and 745 to 7, for summing over them
 
-    result = map(sum_over_autot_of_rows_sharing_aika, group_by_column(roads, 'aika'))
-    return result # TODO: add flattening here?
+def handle_roads_by_id_and_vuosi(grouped_roads):
+    roads = grouped_roads[1]
+    result = map(handle_roads_by_id_vuosi_and_suunta, roads.groupby('vuosi'))
+    return flatten_list(result)
 
 
 def handle_roads_by_id(grouped_roads):
-    """
-    Splits rows by 'suunta', direction, and proceeds to sum 'auto'-column, cars for each hour.
-    :param piste_grouped: grouped-by - groups tuple. Should be already grouped by 'piste', measurement point
-    :return: flatten result of rows, which have summed 'auto', car-amount for each hour
-    """
+    # grouped_rows[0] = list of "groupping value" (in this case 'piste' as previously grouped with that value)
+    # grouped_rows[1] = "grouped rows (= road_usages_rows)"
+
     roads = grouped_roads[1]
-    result = map(handle_roads_by_id_and_suunta, group_by_column(roads, 'suunta'))
+    result = map(handle_roads_by_id_and_vuosi, roads.groupby('suunta'))
     return flatten_list(result)
 
 
@@ -71,8 +51,9 @@ def main(road_usages_data_path):
     :return: New dataframe. If time-unit was between some hour, they were summed.
     """
     roads = pd.read_csv(road_usages_data_path)
+    roads['aika'] = roads['aika'].apply(lambda x: int(x / 100) + 1) # set for example each 700, 715, 730, and 745 to 8, for summing over them
 
-    result = map(handle_roads_by_id, group_by_column(roads, 'piste')) # piste = unique ID that stands for given road. Could use also 'nimi' here.
+    result = map(handle_roads_by_id, roads.groupby('piste')) # piste = unique ID that stands for given road. Could use also 'nimi' here.
     flat_result = flatten_list(result)
 
     return pd.DataFrame(flat_result)

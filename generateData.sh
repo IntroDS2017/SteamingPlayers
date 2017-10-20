@@ -6,7 +6,7 @@ echo "Attempting to generate data..."
 echo "(1/4) Renaming streets, dropping uncertain road-addresses..."
 python3 2_modify_road_usages_names.py
 
-echo "(2/4) Merging car-count by hour..."
+echo "(2/4) By car count, merging rows sharing (year, hour) which are in 15-minute range instead of hourly range..."
 python3 3_merge_road_usages_hours.py
 
 echo "(3/4) Formatting accident-data address-names to match road-usage-data..."
