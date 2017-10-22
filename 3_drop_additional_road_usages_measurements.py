@@ -8,6 +8,7 @@ def main():
     df = pd.read_csv(load_path)
 
     street_names = df.nimi.unique()
+    points_to_drop = []
 
     for street in street_names:
         points = df[df['nimi'] == street].piste.unique()
@@ -16,9 +17,11 @@ def main():
             print(street + " has the following measurement points: " + str(points))
 
             for i in range(1, len(points)):
-                print("Dropping rows at measurement point " + points[i])
-                df.drop(df['piste'] == points[i])
+                points_to_drop.append(points[i])
 
+    print("\nDropping rows at measurement points " + str(points_to_drop))
+
+    df = df[-df['piste'].isin(points_to_drop)]
     df.to_csv(save_path, index=False)
 
 

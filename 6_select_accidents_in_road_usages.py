@@ -19,5 +19,4 @@ df_selected_accidents = df_accidents[df_accidents.Katuosoite.isin(roads)]
 
 #print(len(df_selected_accidents))
 
-df_selected_accidents.to_csv('data/6_accidents.csv')
-
+df_selected_accidents.to_csv('data/6_accidents.csv', index = False)
