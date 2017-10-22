@@ -38,26 +38,19 @@ def process_df():
     # Tienverkas is mostly unused and doesn't seem to provide any useful information
 
     other_cols = ["Tienverkas", "Maankäyttö", "Talvhoitlk", "Nakos150",
-                  "Nakos300", "Nakos460", "Runkotie", "Raskos"] # TODO: add more here
+                  "Nakos300", "Nakos460", "Runkotie", "Raskos", "Tienpit", "Tie", "Aosa", "Aet", "Ajr", "Päivä", "Vkpv", "Taajmerk",
+                  "Pinta", "Valoisuus", "Sää", "Onnpaikka", "Liikvalot", "Liittyvtie", "Noplaji", "Nopsuunvas", "Nopsuunoik",
+                  "Taajama", "Mo_mol", "Toimluokka", "Tienlev", "X", "Y", "Päällyste", "Lämpötila", "Risteys", "Tietyyppi",
+                  "Lisäkaisty", "Solmutyyp", "Liitluok", "Lähliittie", "Suuntlkm", "Toimenpide", "Valaisomis", "Poikkileik",
+                  "Päällyslev", "Päällystlk"] # TODO: add more here if needed
 
     for c in other_cols:
         drop_column(c)
 
 
 if __name__ == '__main__':
-    import sys
-
     load_path = "data/0_accidents.csv"
     save_path = "data/1_accidents.csv"
-
-    try:
-        load_path = sys.argv[1]
-        save_path = sys.argv[2]
-    except:
-        None
-
-    print("load path: " + load_path)
-    print("save path: " + save_path)
 
     df_accidents = pd.read_csv(load_path)
 
