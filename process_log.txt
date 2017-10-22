@@ -40,3 +40,7 @@ Steps
 
 7. Code-file 5_select_accidents.py filters accidents by road-names, which should be common with latest road-usages.
    Input is by default 5_accidents.csv and 4_road_usages.csv. Outputs 6_accidents.csv.
+
+8. Code-file 6_combine_data.py combines datas 4_road_usages.csv and 6_accidents.csv together by having rows of
+   the datasets match if they share the street name, year and hour values. Outputs 7_combined.csv.
+
