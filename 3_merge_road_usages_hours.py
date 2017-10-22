@@ -9,7 +9,7 @@ def flatten_list(to_flat):
     return [row for rows in to_flat for row in rows]
 
 
-def sum_over_autot_of_rows_sharing_aika(grouped_roads):
+def sum_over_car_counts_of_rows_sharing_aika(grouped_roads):
     """
     Sums car-amounts of given rows.
     :param grouped_roads: Roads that are supposed to share (piste/nimi, year, and suunta).
@@ -17,16 +17,17 @@ def sum_over_autot_of_rows_sharing_aika(grouped_roads):
     """
     roads = grouped_roads[1]
 
-    cars = roads['autot'].sum()
-
     result = roads.iloc[0].copy() # copies the first row as the result field
-    result['autot'] = cars
+
+    for col in ['ha', 'pa', 'ka', 'ra', 'la', 'mp', 'rv', 'autot']:
+        result[col] = roads[col].sum()
+
     return result
 
 
 def handle_roads_by_id_vuosi_and_suunta(grouped_roads):
     roads = grouped_roads[1]
-    return map(sum_over_autot_of_rows_sharing_aika, roads.groupby('aika'))
+    return map(sum_over_car_counts_of_rows_sharing_aika, roads.groupby('aika'))
 
 
 def handle_roads_by_id_and_vuosi(grouped_roads):
