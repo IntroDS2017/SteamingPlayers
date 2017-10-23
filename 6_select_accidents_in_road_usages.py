@@ -4,6 +4,7 @@
 #Select from accident data the rows with those street names that are in traffic data
 
 import pandas as pd
+import numpy as np
 
 df_accidents = pd.read_csv('data/5_accidents.csv')
 
@@ -18,5 +19,9 @@ roads = list(df_road_usages.nimi.unique())
 df_selected_accidents = df_accidents[df_accidents.Katuosoite.isin(roads)]
 
 #print(len(df_selected_accidents))
+
+indexes = np.arange(len(df_selected_accidents))
+
+df_selected_accidents['accident-index'] = indexes
 
 df_selected_accidents.to_csv('data/6_accidents.csv', index = False)

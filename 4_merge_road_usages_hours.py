@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def flatten_list(to_flat):
     """
@@ -60,7 +61,12 @@ if __name__ == '__main__':
     load_path = "data/3_road_usages.csv"
     save_path = "data/4_road_usages.csv"
 
-    result = main(load_path)
-    result.to_csv(save_path, index = False) # do not write index column in the file
+    df = main(load_path)
+    df = df.drop('suunta', 1)
 
-    print(result)
+    indexes = np.arange(len(df))
+
+    df['road-usage-index'] = indexes
+    df.to_csv(save_path, index = False) # do not write index column in the file
+
+    print(df)
