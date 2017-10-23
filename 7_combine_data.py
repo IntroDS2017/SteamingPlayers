@@ -22,7 +22,7 @@ def main():
                            left_on=['nimi', 'aika', 'vuosi'],
                            right_on=['Katuosoite', 'Tunti', 'Vuosi'])
 
-    df_combined.to_csv('data/7_combined.csv', index = False)
+    df_combined.to_csv('data/7_combined_' + method + "_join.csv", index = False)
 
 if __name__ == '__main__':
     main()
