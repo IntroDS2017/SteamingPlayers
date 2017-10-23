@@ -25,15 +25,9 @@ def sum_over_car_counts_of_rows_sharing_aika(grouped_roads):
     return result
 
 
-def handle_roads_by_id_vuosi_and_suunta(grouped_roads):
-    roads = grouped_roads[1]
-    return map(sum_over_car_counts_of_rows_sharing_aika, roads.groupby('aika'))
-
-
 def handle_roads_by_id_and_vuosi(grouped_roads):
     roads = grouped_roads[1]
-    result = map(handle_roads_by_id_vuosi_and_suunta, roads.groupby('vuosi'))
-    return flatten_list(result)
+    return map(sum_over_car_counts_of_rows_sharing_aika, roads.groupby('aika'))
 
 
 def handle_roads_by_id(grouped_roads):
@@ -41,7 +35,7 @@ def handle_roads_by_id(grouped_roads):
     # grouped_rows[1] = "grouped rows (= road_usages_rows)"
 
     roads = grouped_roads[1]
-    result = map(handle_roads_by_id_and_vuosi, roads.groupby('suunta'))
+    result = map(handle_roads_by_id_and_vuosi, roads.groupby('vuosi'))
     return flatten_list(result)
 
 
@@ -49,7 +43,7 @@ def main(road_usages_data_path):
     """
     Merges hours in 2_road_usages.csv
     :param road_usages_data_path: String, where file is loaded from.
-    :return: New dataframe. If time-unit was between some hour, they were summed.
+    :return: New dataframe. If time-unit was between some hour, they were summed. Sums also over both 'suunta's!
     """
     roads = pd.read_csv(road_usages_data_path)
     roads['aika'] = roads['aika'].apply(lambda x: int(x / 100) + 1) # set for example each 700, 715, 730, and 745 to 8, for summing over them

@@ -10,7 +10,7 @@ python3 2_modify_road_usages_names.py
 echo "\n(3/6) Dropping somewhat duplicate road usages data from streets with multiple measurement points..."
 python3 3_drop_additional_road_usages_measurements.py
 
-echo "\n(4/6) By car count, merging rows sharing (year, hour) which are in 15-minute range instead of hourly range..."
+echo "\n(4/6) By car count, merging rows sharing (year, hour) which are in 15-minute range instead of hourly range. Summing also over directions..."
 python3 4_merge_road_usages_hours.py
 
 echo "\n(5/6) Formatting accident-data address-names to match road-usage-data..."

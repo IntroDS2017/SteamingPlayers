@@ -35,7 +35,9 @@ Steps
 
 
 6. Code file 4_merge_road_usages_hours.py combines rows of 3_road_usages.csv by setting all the entries being hourly.
-   Originally the entries were either formed in 15-minute or 1-hour scale. Outputs 4_road_usages.csv.
+   Originally the entries were either formed in 15-minute or 1-hour scale.
+   It also sums over rows which are of same road, year and hour, but have different 'suunta' values.
+   Outputs 4_road_usages.csv.
 
 
 6. Code file 5_change_accidents_katuosoite.py formats road-addresses of 1_accidents.csv to match 4_road_usges.csv
