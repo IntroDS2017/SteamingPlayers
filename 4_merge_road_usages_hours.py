@@ -64,9 +64,7 @@ if __name__ == '__main__':
     df = main(load_path)
     df = df.drop('suunta', 1)
 
-    indexes = np.arange(len(df))
-
-    df['road-usage-index'] = indexes
+    df.insert(loc = 0, column = 'ru-index', value = np.arange(len(df)))
     df.to_csv(save_path, index = False) # do not write index column in the file
 
     print(df)

@@ -20,8 +20,5 @@ df_selected_accidents = df_accidents[df_accidents.Katuosoite.isin(roads)]
 
 #print(len(df_selected_accidents))
 
-indexes = np.arange(len(df_selected_accidents))
-
-df_selected_accidents['accident-index'] = indexes
-
+df_selected_accidents.insert(loc = 0, column = 'a-index', value = np.arange(len(df_selected_accidents)))
 df_selected_accidents.to_csv('data/6_accidents.csv', index = False)
