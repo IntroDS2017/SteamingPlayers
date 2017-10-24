@@ -4,7 +4,18 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 
 [packages]
+
 pandas = "*"
+numpy = "*"
+shapely = "*"
+fiona = "*"
+six = "*"
+cython = "*"
+"nose2" = "*"
+"cov-core" = "*"
+coverage = "*"
+geopandas = "*"
+
 
 
 [dev-packages]
