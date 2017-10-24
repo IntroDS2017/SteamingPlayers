@@ -101,7 +101,7 @@ def main():
     gpd_dict = read_em()
     gpd_dict['points'] = points_and_accident_ratio_sum
 
-    plot_em(gpd_dict)
+    plot_em(gpd_dict, show_names=False)
 
     # plt.savefig('./data/figures/5_measurement_points.png'
     #             , format='png', bbox_inches='tight', dpi=500)
