@@ -29,31 +29,43 @@ def plot_em(gpd_dict, show_names=False):
     gpd_dict['asunto'].plot(ax=base, color='yellow', linewidth=0.2, markersize=0.2, zorder=1)
 
     points = gpd_dict['points']
-    point_ax = points.plot(ax=base, color='red', marker='*', zorder=2, markersize=1.5)
+    points.plot(ax=base, color='red', marker='*', zorder=3, markersize=1.5)
+
+    points.apply(lambda x: draw_point(x, base), axis=1)
 
     x1, x2, y1, y2 = plt.axis()
 
-    point_ax.set_xlim([x1, x2])
-    point_ax.set_ylim([6670000, 6687500])
+    # whole map
+    base.set_xlim([x1, x2])
+    base.set_ylim([6670000, 6687500])
 
-    point_ax.set_axis_off()
+    # central
+    # base.set_xlim([5000+2.549e7, 8000+2.549e7])
+    # base.set_ylim([6671000, 6674000])
+
+    base.set_axis_off()
 
     if show_names:
-        gpd_dict['points'].apply(lambda x: annotate_point(x, point_ax), axis=1)
+        points.apply(lambda x: annotate_point(x, base), axis=1)
 
     added.clear()
 
 
+def draw_point(row, ax):
+    marker_size = row['Accidents per Traffic sum'] * 10000
+    ax.plot(row.geometry.x, row.geometry.y, 'o', markersize=marker_size, markerfacecolor=(1, 1, 0, 0.5))
+
+
 def annotate_point(row, ax):
     if row.nimi not in added:
-        ax.annotate(row.nimi, xy=(row.geometry.x, row.geometry.y), ha='center')
+        ax.annotate(row.nimi, xy=(row.geometry.x, row.geometry.y))
         added.append(row.nimi)
         
 
 def usage_df_to_gpd(path):
     df = pd.read_csv(path)
 
-    coord = df[['piste','x_gk25', 'y_gk25', 'aika', 'vuosi', 'nimi']]
+    coord = df[['piste', 'x_gk25', 'y_gk25', 'nimi']].drop_duplicates().reset_index()
 
     geometry = [Point(xy) for xy in zip(coord.x_gk25, coord.y_gk25)]
     coord.drop(['x_gk25', 'y_gk25'], axis=1)
@@ -62,16 +74,46 @@ def usage_df_to_gpd(path):
     return GeoDataFrame(coord, crs=crs, geometry=geometry)
 
 
-if __name__ == '__main__':
+def get_accident_ratio(path):
+    df = pd.read_csv(path)
+    return df[['piste', 'Accidents per Traffic']]
+
+
+def combine_ratio_and_usage(usage_path, accident_ratio_path):
+    usage_gdp = usage_df_to_gpd(usage_path)
+    accident_ratio_df = get_accident_ratio(accident_ratio_path)
+    accident_ratio_sum_df = accident_ratio_df.groupby('piste')\
+        .agg({'Accidents per Traffic': 'sum'})\
+        .reset_index()\
+        .rename(columns={'Accidents per Traffic': 'Accidents per Traffic sum'})\
+
+    combined_gdp = usage_gdp.merge(accident_ratio_sum_df, on='piste')
+
+    return combined_gdp.sort_values('Accidents per Traffic sum', ascending=False)
+
+
+def main():
     usage_load_path = './data/4_road_usages.csv'
+    accident_ratio_path = './data/8_accident_ratio.csv'
+
+    points_and_accident_ratio_sum = combine_ratio_and_usage(usage_load_path, accident_ratio_path)
 
     gpd_dict = read_em()
-    gpd_dict['points'] = usage_df_to_gpd(usage_load_path)
+    gpd_dict['points'] = points_and_accident_ratio_sum
 
     plot_em(gpd_dict)
 
-    plt.savefig('./data/figures/4_measurement_points.png', format='png', bbox_inches='tight', dpi=500)
+    # plt.savefig('./data/figures/5_measurement_points.png'
+    #             , format='png', bbox_inches='tight', dpi=500)
     plt.show()
+
+    return 0
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())
+
 
 
 
