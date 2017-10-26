@@ -20,8 +20,9 @@ To run all the intended data transformations, run either `process_data_pipenv.sh
 
 ## Pipenv instructions
 
-Also found [here](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 Some of the packages I was not able to install via pipenv, and should be installed individually with pip.
+
+Also found [here](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
 
 1. Have Pip for python 3 installed
     - Google if uncertaion how to do it in your OS
