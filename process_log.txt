@@ -46,3 +46,13 @@ Steps
 
 7. Code file 6_select_accidents_in_road_usages.py filters accidents by road-names, which should be common with latest road-usages.
    Takes 5_accidents.csv and 4_road_usages.csv as input. Outputs 6_accidents.csv.
+
+
+8. Code 7_combine_data.py does desired join (inner join by default) to combine traffic- and accident-data. Inputs: 'data/4_road_usages.csv'
+   'data/6_accidents.csv'. Outputs 'data/7_combined_<join name>_join.csv'
+
+
+9. Code 8_produce_primary_data_graphs.py plots accidents, traffic and traffic/accident-ratios. Also outputs 'data/8_traffic_accidents_ratio.csv'. Outputs figures through 1 to 3. Inputs: 'data/7_combined_left_join.csv'.
+
+
+10. Code 9_mapping.py creates GIS data out of '8_traffic_accidents_ratio.txt' and './data/4_road_usages.csv'. Figure 5 was created with default settings of the source-code. Figure 4 was created before accident-data was created. Figures 6 to 8 were created by hand with Pyplot GUI.
