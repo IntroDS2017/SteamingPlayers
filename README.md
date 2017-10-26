@@ -1,6 +1,6 @@
 # Traffic accidents in Helsinki
 
-Source code for [Data science-mini project](https://helsinki-traffic-research.herokuapp.com).
+Source code for [introduction to data science-mini project](https://helsinki-traffic-research.herokuapp.com).
 
 Logs in the `./logs` directory and `process_log.txt` describe the changes in the data sets, and what methods are used to produce new output.
 
