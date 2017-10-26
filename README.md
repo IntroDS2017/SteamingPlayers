@@ -1,6 +1,6 @@
 # Traffic accidents in Helsinki
 
-Source code for Introduction to Data Science(DATA11001) mini project.
+Source code for Introduction to Data Science (DATA11001) mini project.
 
 Logs in the `./logs` directory and `process_log.txt` describe the changes in the data sets, and what methods are used to produce new output.
 
