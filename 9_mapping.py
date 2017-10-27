@@ -52,7 +52,7 @@ def plot_em(gpd_dict, show_names=False):
 
 
 def draw_point(row, ax):
-    marker_size = row['Accidents per Traffic sum'] * 5000
+    marker_size = row['Accidents per Traffic sum'] * 1350000
     ax.plot(row.geometry.x, row.geometry.y, 'o', markersize=marker_size, markerfacecolor=(1, 1, 0, 0.5))
 
 
@@ -76,12 +76,13 @@ def usage_df_to_gpd(path):
 
 def get_accident_ratio(path):
     df = pd.read_csv(path)
-    return df[['piste', 'Accidents per Traffic']]
+    return df[['piste', 'Accidents per Traffic']].drop_duplicates()
 
 
 def combine_ratio_and_usage(usage_path, accident_ratio_path):
     usage_gdp = usage_df_to_gpd(usage_path)
     accident_ratio_df = get_accident_ratio(accident_ratio_path)
+
     accident_ratio_sum_df = accident_ratio_df.groupby('piste')\
         .agg({'Accidents per Traffic': 'sum'})\
         .reset_index()\
